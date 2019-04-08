@@ -74,14 +74,14 @@
                     </select>
                 </div>
                 <div class="col">
-                    <input type="search" class="form-control" placeholder="Procurar" name="busca" id="input_filtra-estrategia">
+                    <input type="search" class="form-control" placeholder="Procurar" name="busca" id="input_filtra-operacao">
                 </div>
             </div>
         </form>
 
         <!-- TABELA -->
         <div class="row mt-3">
-            <table class="table table-hover table-striped table-bordered" id="table_estrategias">
+            <table class="table table-hover table-striped table-bordered" id="table_operacoes">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Estratégia</th>
@@ -142,8 +142,9 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" id="form_modal--save-button" class="btn btn-primary" data-acao=''>Salvar</button>
+                	<button type="button" id="form_modal--delete-button" class="btn btn-danger" data-delete="" >Deletar</button>
+	                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	                <button type="submit" id="form_modal--save-button" class="btn btn-primary" data-acao=''>Salvar</button>
                 </div>
             </div>
         </div>

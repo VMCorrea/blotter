@@ -60,6 +60,7 @@ public class OperacaoRestController {
 		dao.create(op);
 		URI uri = new URI("blotter/api/operacoes/" + op.getId());
 		return ResponseEntity.created(uri).body(op.toJson());
+		
 	}
 
 	@PutMapping(value = "/")
