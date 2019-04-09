@@ -1,8 +1,9 @@
 package br.com.lifetime.blotter.model;
 
-import java.text.Normalizer;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.google.gson.Gson;
@@ -11,26 +12,11 @@ import com.google.gson.Gson;
 public class Estrategia {
 
 	@Id
-	private String permalink;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(unique = true)
 	private String nome;
-
-	public Estrategia() {
-	}
-
-	public Estrategia(String nome) {
-
-		this.nome = nome;
-		this.generatePermalink();
-
-	}
-
-	public String getPermalink() {
-		return permalink;
-	}
-
-	public void setPermalink(String permalink) {
-		this.permalink = permalink;
-	}
 
 	public String getNome() {
 		return nome;
@@ -38,6 +24,14 @@ public class Estrategia {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	/**
@@ -53,20 +47,9 @@ public class Estrategia {
 
 		if (!novo.nome.isEmpty()) {
 			this.nome = novo.nome;
-			this.generatePermalink();
 		}
 
 	}
 
-	public void generatePermalink() {
-
-		// Remove espaços e múltiplos '-' por apenas um '-', depois transforma tudo em
-		// minúsculas.
-		this.permalink = this.nome.replaceAll("-", " ").replaceAll("\\s+", "-").toLowerCase();
-
-		// Remove acentos e caracteres especiais, "normalizando-os".
-		this.permalink = Normalizer.normalize(permalink, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
-
-	}
 
 }

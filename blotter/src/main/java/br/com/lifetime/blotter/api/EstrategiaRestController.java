@@ -25,9 +25,9 @@ public class EstrategiaRestController {
 	@Autowired
 	private EstrategiaDAO dao;
 
-	@GetMapping(value = "/{permalink}", produces = "application/json")
-	public Estrategia get(@PathVariable("permalink") String permalink) {
-		return dao.read(permalink);
+	@GetMapping(value = "/{id}", produces = "application/json")
+	public Estrategia get(@PathVariable("id") Long id) {
+		return dao.read(id);
 	}
 
 	@GetMapping(value = "/", produces = "application/json")
@@ -39,7 +39,7 @@ public class EstrategiaRestController {
 	public ResponseEntity<String> post(@RequestBody Estrategia est) throws URISyntaxException {
 	
 		dao.create(est);
-		URI uri = new URI("blotter/api/estrategias/" + est.getPermalink());
+		URI uri = new URI("blotter/api/estrategias/" + est.getId());
 		return ResponseEntity.created(uri).body(est.toJson());
 	}
 	
@@ -59,9 +59,9 @@ public class EstrategiaRestController {
 		return ResponseEntity.ok().body(est.toJson());
 	}
 
-	@DeleteMapping(value = "/{permalink}")
-	public ResponseEntity<String> delete(@PathVariable("permalink") String permalink) {
-		dao.delete(permalink);
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<String> delete(@PathVariable("id") Long id) {
+		dao.delete(id);
 		return ResponseEntity.ok().build();
 	}
 

@@ -53,7 +53,9 @@ public class OperacaoRestController {
 		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		System.out.println(f.format(op.getDataInicio().getTime()) + "4");
 		
-		Estrategia est = estDao.read(op.getEstrategia().getPermalink());
+		System.out.println(op.getEstrategia().getId());
+		
+		Estrategia est = estDao.read(op.getEstrategia().getId());
 		
 		op.setEstrategia(est);
 		
@@ -66,7 +68,7 @@ public class OperacaoRestController {
 	@PutMapping(value = "/")
 	public ResponseEntity<String> put(@RequestBody Operacao op) {
 		
-		Estrategia est = estDao.read(op.getEstrategia().getPermalink());
+		Estrategia est = estDao.read(op.getEstrategia().getId());
 		
 		op.setEstrategia(est);
 		

@@ -27,10 +27,10 @@
             <div id="navbarPrincipal" class="navbar-collapse collapse">
                 <ul class="navbar-nav ml-auto">
                 	<li class="nav-item mx-3">
-                        <a class="nav-link active" href="#">Operações</a>
+                        <a class="nav-link active" href="<spring:url value="/operacoes/"></spring:url>">Operações</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" href="#">Estratégias</a>
+                        <a class="nav-link" href="<spring:url value="/estrategias/"></spring:url>">Estratégias</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="#">Blotter</a>
@@ -58,12 +58,12 @@
                 <button class="btn btn-primary ml-auto rounded-pill px-5" data-toggle="modal" data-target="#modalEdit" data-acao="Criar">Criar</button>
             </div>
             <div class="col-auto mr-auto">
-                <button class="btn btn-primary rounded-pill px-5" data-acao="Buscar" onclick="hideShowElement('form_busca-estrategia')">Buscar</button>
+                <button class="btn btn-primary rounded-pill px-5" data-acao="Buscar" onclick="hideShowElement('form_busca-operacao')">Buscar</button>
             </div>
         </div>
 
         <!--  BUSCA   -->
-        <form class="mt-3 d-none" action="" id="form_busca-estrategia">
+        <form class="mt-3 d-none" action="" id="form_busca-operacao">
             <div class="form-row mx-auto align-items-center">
                 <div class="col-auto" id="filtro-select">
                     <label for="filtro" class="sr-only">Filtrar por:</label>
@@ -124,7 +124,7 @@
 								
 								<c:forEach items="${ estrategias }" var="est">
 								
-									<option value="${ est.nome }" data-permalink="${ est.permalink }"></option>
+									<option value="${ est.nome }" data-id="${ est.id }"></option>
 								
 								</c:forEach>
 								
@@ -153,7 +153,7 @@
     <script src='<spring:url value="/resources/js/jquery.min.js" />'></script>
     <script src='<spring:url value="/resources/js/popper.min.js" />'></script>
     <script src='<spring:url value="/resources/js/bootstrap.min.js" />'></script>
-    <script src='<spring:url value="/resources/js/app.js" />'></script>
+    <script src='<spring:url value="/resources/js/operacao.js" />'></script>
 </body>
 
 </html>

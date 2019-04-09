@@ -12,7 +12,7 @@ window.onload = function () {
 
 };
 
-// ==== MODAL DE EDIÇÃO/CRIAÇÃO DE ESTRATÉGIAS ====
+// ==== MODAL DE EDIÇÃO/CRIAÇÃO DE OPERAÇÕES ====
 // Necessário usar JQuery, por causa do Bootstrap
 $( "#modalEdit" ).on( "show.bs.modal", function ( event ) {
 
@@ -76,7 +76,7 @@ function sendOperacao() {
         id = document.getElementById( "id-edit" ).value,
         list = document.getElementById( "form_modal--list-estrategias" ),
         options = list.getElementsByTagName( "option" ),
-        permalink = "";
+        idEst = 0;
 
     // Compara o campo de Estratégia com as opções disponiveis no <datalist>.
     for( var i = 0 ; i < options.length ; i++ ){
@@ -85,7 +85,7 @@ function sendOperacao() {
 
             // Ao encontrar uma opção que bata, o permalink que está salvo na <option> é salvo. 
             // Ele é necessário para enviar a operação para o banco.
-            permalink = options[i].getAttribute( "data-permalink" );
+            idEst = options[i].getAttribute( "data-id" );
 
         }        
     
@@ -96,7 +96,7 @@ function sendOperacao() {
 
         alert( "Preencha todos os campos!" );
 
-    } else if( permalink == "" ){
+    } else if( idEst == 0 ){
     // Verifica se algum permalink foi encontrado. Se não foi, é porque a estratégia não existe.
 
         alert( "Estratégia não existe!" );
@@ -107,7 +107,7 @@ function sendOperacao() {
             obj = {
                 nome: op,
                 estrategia: { 
-                    permalink: permalink 
+                    id: idEst 
                 },
                 dataInicio: setDataBr( (data.getDate() + 1),  (data.getMonth() + 1), data.getFullYear() ),
                 id: ""
@@ -170,7 +170,7 @@ function sendOperacao() {
 // Requisição do tipo DELETE
 function deleteOperacao() {
 
-    if ( window.confirm( "Deseja deletar essa operação? Essa ação não poderá ser desfeita" ) ){
+    if ( window.confirm( "Deseja deletar essa operação? Essa ação não poderá ser desfeita." ) ){
 
         var id = document.getElementById( "form_modal--delete-button" ).getAttribute( "data-delete" ),
         xhr = new XMLHttpRequest();

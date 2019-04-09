@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.lifetime.blotter.model.Estrategia;
-import br.com.lifetime.blotter.model.Operacao;
 
 @Repository
 public class EstrategiaDAO {
@@ -20,18 +19,17 @@ public class EstrategiaDAO {
 
 	@Transactional
 	public void create(Estrategia est) {
-		est.generatePermalink();
 		manager.persist(est);
 	}
-
+	
 	@Transactional
-	public Estrategia read(String permalink) {
-		return manager.find(Estrategia.class, permalink);
+	public Estrategia read(Long id) {
+		return manager.find(Estrategia.class, id);
 	}
 
 	@Transactional
-	public void delete(String permalink) {
-		Estrategia est = manager.find(Estrategia.class, permalink);
+	public void delete(Long id) {
+		Estrategia est = manager.find(Estrategia.class, id);
 		manager.remove(est);
 	}
 
@@ -42,8 +40,9 @@ public class EstrategiaDAO {
 		return lista;
 	}
 
+	@Transactional
 	public void update(Estrategia est) {
-		Estrategia velho = manager.find(Estrategia.class, est.getPermalink());
+		Estrategia velho = manager.find(Estrategia.class, est.getId());
 		velho.mescla(est);
 	}
 	

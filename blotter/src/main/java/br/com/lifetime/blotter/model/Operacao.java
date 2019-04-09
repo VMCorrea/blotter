@@ -66,8 +66,9 @@ public class Operacao {
 
 	public void mescla(Operacao novo) {
 
-		if (!novo.nome.isEmpty())
-			this.nome = novo.nome;
+		this.nome = novo.nome;
+
+		this.estrategia = novo.estrategia;
 
 		this.dataInicio = novo.dataInicio;
 
