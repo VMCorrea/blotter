@@ -26,14 +26,14 @@
             </button>
             <div id="navbarPrincipal" class="navbar-collapse collapse">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item mx-3">
+                        <a class="nav-link" href="<spring:url value="/estrategias"></spring:url>">Estratégias</a>
+                    </li>
                 	<li class="nav-item mx-3">
-                        <a class="nav-link active" href="<spring:url value="/operacoes/"></spring:url>">Operações</a>
+                        <a class="nav-link active" href='<spring:url value="/operacoes"></spring:url>'>Operações</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" href="<spring:url value="/estrategias/"></spring:url>">Estratégias</a>
-                    </li>
-                    <li class="nav-item mx-3">
-                        <a class="nav-link" href="#">Blotter</a>
+                        <a class="nav-link" href="<spring:url value="/blotter"></spring:url>">Blotter</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="#">Consulta Cliente</a>

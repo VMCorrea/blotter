@@ -24,7 +24,7 @@ public class OperacaoController {
 	@Autowired
 	private EstrategiaDAO estDao;
 
-	@GetMapping("/")
+	@GetMapping("")
 	public ModelAndView main() {
 		ModelAndView mv = new ModelAndView("operacao/operacoes");
 

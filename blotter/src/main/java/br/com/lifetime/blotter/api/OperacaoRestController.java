@@ -42,12 +42,12 @@ public class OperacaoRestController {
 		return op;
 	}
 
-	@GetMapping(value = "/", produces = "application/json")
+	@GetMapping(value = "", produces = "application/json")
 	public List<Operacao> get() {
 		return dao.list();
 	}
 
-	@PostMapping(value = "/")
+	@PostMapping(value = "")
 	public ResponseEntity<String> post(@RequestBody Operacao op) throws URISyntaxException {
 		
 		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
@@ -65,7 +65,7 @@ public class OperacaoRestController {
 		
 	}
 
-	@PutMapping(value = "/")
+	@PutMapping(value = "")
 	public ResponseEntity<String> put(@RequestBody Operacao op) {
 		
 		Estrategia est = estDao.read(op.getEstrategia().getId());

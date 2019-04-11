@@ -7177,3 +7177,16 @@ a.text-vinho:hover, a.text-vinho:focus {
   position: absolute;
   top: -1.25rem;
   z-index: 99; }
+
+.td-300 {
+  min-width: 300px; }
+
+.td-200 {
+  min-width: 200px; }
+
+.table_td--input-operacao {
+  font-size: 0.95rem !important;
+  height: 100% !important; }
+
+#table_tbody--registros td {
+  vertical-align: middle !important; }

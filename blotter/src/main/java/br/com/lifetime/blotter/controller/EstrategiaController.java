@@ -18,7 +18,7 @@ public class EstrategiaController {
 	@Autowired
 	EstrategiaDAO dao;
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public ModelAndView main() {
 		ModelAndView mv = new ModelAndView("estrategia/estrategias");
 		

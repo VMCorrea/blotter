@@ -30,12 +30,12 @@ public class EstrategiaRestController {
 		return dao.read(id);
 	}
 
-	@GetMapping(value = "/", produces = "application/json")
+	@GetMapping(value = "", produces = "application/json")
 	public List<Estrategia> get() {
 		return dao.list();
 	}
 
-	@PostMapping(value = "/")
+	@PostMapping(value = "")
 	public ResponseEntity<String> post(@RequestBody Estrategia est) throws URISyntaxException {
 	
 		dao.create(est);
@@ -53,7 +53,7 @@ public class EstrategiaRestController {
 		return ResponseEntity.ok().build();
 	}
 
-	@PutMapping(value = "/")
+	@PutMapping(value = "")
 	public ResponseEntity<String> put(@RequestBody Estrategia est) {
 		dao.update(est);
 		return ResponseEntity.ok().body(est.toJson());
