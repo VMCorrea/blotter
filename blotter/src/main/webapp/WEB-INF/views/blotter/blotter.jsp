@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
-<%@ page import="java.util.List,java.lang.String" %>
+<%@ page import="java.util.List,java.lang.String,br.com.lifetime.blotter.model.Operacao" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
@@ -54,22 +54,22 @@
 
         <!--  BOTÕES  -->
         <div class="row">
-            <div class="col-auto col-md-8 text-left">
+            <div class="col-12 col-md-8 text-md-left text-center">
                 <button class="btn btn-primary rounded-pill px-5" data-acao="Classificar" data-toggle="modal" data-target="#modalCl">Classificar Selecionados</button>
-                <button class="btn btn-primary rounded-pill px-5" data-acao="Filtrar" onclick="">Filtrar</button>
+                <button class="btn btn-primary rounded-pill px-5" id="btn-filtro" data-acao="Filtrar">Filtrar</button>
             </div>
-            <div class="col-auto col-md-4 text-right">
-            	<button class="btn btn-primary rounded-pill px-5" data-acao="Importar" onclick="">Importar <i class="far fa-file-excel fa-sm"></i></button>
-                <button class="btn btn-success rounded-pill px-5" data-acao="Salvar" onclick="">Salvar</button>
+            <div class="col-12 col-md-4 text-md-right text-center">
+            	<button class="btn btn-primary rounded-pill px-5" data-acao="Importar">Importar <i class="far fa-file-excel fa-sm"></i></button>
+                <button class="btn btn-success rounded-pill px-5" data-acao="Salvar" id="btn-salvar">Salvar</button>
             </div>
         </div>
 
         <!--  FILTRO   -->
-        <form class="mt-3" action="" id="form_filtro-registros">
+        <form class="mt-3 d-none" action="" id="form_filtro-registros">
             <div class="form-row mx-auto align-items-center">
                 <div class="col-auto" id="form_filtro-select">
                     <label for="filtro" class="sr-only">Filtrar por:</label>
-                    <select name="filtro" id="filtro" class="">
+                    <select name="filtro" id="form_select--filtro" class="">
                         <option value="2">Cliente</option>
                         <option value="3">Ativo</option>
                         <option value="4">Tipo</option>
@@ -90,7 +90,7 @@
             <table class="table table-hover table-striped table-bordered" id="table_registros">
                 <thead class="thead-dark">
                     <tr class="text-center">
-                    	<th scope="col"> <input type="checkbox"> </th>
+                    	<th scope="col"> <input type="checkbox" name="checkbox-master"> </th>
                         <th scope="col">Operação</th>
                         <th scope="col">Cliente</th>
                         <th scope="col">Ativo</th>
@@ -112,31 +112,31 @@
 						<td> 350 </td>
 						<td> 12,65 </td>
 						<td> 4522367 </td>
-						<td class="td-200"> 10/04/2019 14:44 </td>
+						<td class="td-200"> 11/04/2019 14:44 </td>
                     </tr>
                     
 					<tr class="text-center">
 						<td> <input type="checkbox"> </td>
-                        <td> <input class="form-control table_td--input-operacao" type="text" list="table_input--list-operacoes"> </td>
-						<td> GIOVANNI DE ALMEIDA MARAZZI </td>
+                        <td class="td-200 py-0"> <input class="form-control table_td--input-operacao" type="text" list="table_input--list-operacoes"> </td>
+						<td class="td-300" > GIOVANNI DE ALMEIDA MARAZZI </td>
 						<td> CCRO3 </td>
 						<td> V </td>
 						<td> 800 </td>
 						<td> 14,93 </td>
 						<td> 544651 </td>
-						<td> 10/04/2019 14:53 </td>
+						<td class="td-200"> 10/04/2019 14:53 </td>
                     </tr>
                     
 					<tr class="text-center">
 						<td> <input type="checkbox"> </td>
-                        <td> <input class="form-control table_td--input-operacao" type="text" list="table_input--list-operacoes"> </td>
- 						<td> WALLACE BRITO DO NASCIMENTO </td>
+                        <td class="td-200 py-0"> <input class="form-control table_td--input-operacao" type="text" list="table_input--list-operacoes"> </td>
+ 						<td class="td-300"> WALLACE BRITO DO NASCIMENTO </td>
 						<td> VVAR3 </td>
 						<td> V </td>
 						<td> 0 </td>
 						<td> 6,75 </td>
 						<td> 651654 </td>
-						<td> 10/04/2019 15:32 </td>
+						<td class="td-200"> 04/05/2019 15:32 </td>
                     </tr>
 
                 </tbody>
@@ -145,7 +145,7 @@
 
     </main>
     
-    <!-- MODAL -->
+    <!-- MODAL CLASSIFICAR -->
     <div class="modal fade" id="modalCl" tabindex="-1" role="dialog" aria-labelledby="modalClLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -165,25 +165,24 @@
                 </div>
                 <div class="modal-footer">
 	                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	                <button type="submit" id="form_modal--classify-button" class="btn btn-primary" data-acao=''>Classificar</button>
+	                <button type="submit" id="form_modal--classify-button" class="btn btn-primary">Classificar</button>
                 </div>
             </div>
         </div>
     </div>
     
     <datalist id="table_input--list-operacoes">
-    	<option value="Operação 1">
-    	<option value="Operação 2">
-    	<option value="Operação 3">
-    	<option value="Operação 4">
-    	<option value="Operação 5">
-    	<option value="Operação 6">
-    	<option value="Operação 7">
+    	<c:forEach items="${ operacoes }" var="op">
+    	<option value="${ op.nome }" data-op="${ op.id }">
+    	</c:forEach>
     </datalist>
 
     <script src='<spring:url value="/resources/js/jquery.min.js" />'></script>
     <script src='<spring:url value="/resources/js/popper.min.js" />'></script>
     <script src='<spring:url value="/resources/js/bootstrap.min.js" />'></script>
+    <script src='<spring:url value="/resources/js/blotter.min.js" />'></script>
+    
+    
 </body>
 
 </html>

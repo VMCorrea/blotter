@@ -7153,7 +7153,7 @@ a.text-vinho:hover, a.text-vinho:focus {
 .editavel {
   cursor: pointer; }
 
-#filtro {
+#filtro, #form_select--filtro {
   display: inline-block;
   width: 100%;
   height: calc(1.5em + 0.75 + 2px);
