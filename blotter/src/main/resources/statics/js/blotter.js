@@ -3,13 +3,15 @@ var tbody,
     inputFiltro,
     checkboxMaster,
 	list,
-	options;
+	options,
+	formUpload;
 
 window.onload = function () {
 
     var btnClassify,
         btnFiltrar,
-		btnSalvar;
+		btnSalvar,
+		btnUpload;
        
     inputFiltro = document.getElementById( "input_filtra-registro" );
     inputFiltro.addEventListener( "keyup", filtroRegistro );
@@ -22,7 +24,12 @@ window.onload = function () {
     
     btnFiltrar = document.getElementById( "btn-filtro" );
     btnFiltrar.addEventListener( "click", function() {
-       hideShowElement( "form_filtro-registros" ); 
+       hideShowElement( "form_filtro-registros" );
+		
+		inputFiltro.value = "";
+		
+		filtroRegistro();
+		
     });
     
     tbody = document.getElementById( "table_tbody--registros" );
@@ -33,9 +40,32 @@ window.onload = function () {
 	
 	options = list.getElementsByTagName( "option" );
 	
-	
 	btnSalvar = document.getElementById( "btn-salvar" );
 	btnSalvar.addEventListener( "click", salvarRegistros );
+	
+	btnUpload = document.getElementById( "form_modal-import--upload-button" );
+	
+
+	var inputFile = document.getElementById( "form_modal-import--input-file" );
+	
+	formUpload = document.getElementById( "form_modal-import" );
+	formUpload.addEventListener( "submit", function( event ) {
+		event.preventDefault();
+		event.stopPropagation();
+		
+		var request = new XMLHttpRequest(),
+			formData = new FormData();
+		
+		formData.append( "file", inputFile.files[0] );
+		
+		request.open( "POST", "/blotter/form-upload" );
+		request.onload = () => console.log(request.status);
+		request.send(formData);
+		
+		$( "#modalImport" ).modal( "hide" );
+		
+	
+	});
 
 };
 
@@ -181,7 +211,9 @@ function salvarRegistros() {
 		idOp = 0,
 		td, 
 		falha = false,
-		salvos = [];
+		salvos = [],
+		idLinha,
+		numFalhas = 0;
 	
 	for( var i = 0 ; i < tr.length ; i++ ) {
 		
@@ -193,29 +225,25 @@ function salvarRegistros() {
 		
 		if ( idOp != "" ) {
 			
+			idLinha = tr[i].getAttribute( "data-registro" );
+			
 			registro = {
-				cliente: {
-					nome: td[2].innerText,
-					codigo: td[7].innerText
-				},
+				id: idLinha,
 				operacao: {
 					id: idOp
-				},
-				ativo: td[3].innerText,
-				tipo: td[4].innerText,
-				quantidade: td[5].innerText,
-				preco: td[6].innerText,
-				data: td[8].innerText
+				}
 			};
 			
 			registros.push( registro );
 			
-			salvos.push( i );
+			salvos.push( idLinha );
 	
 			
 		} else {
 			
 			falha = true;
+			
+			numFalhas++;
 			
 		}
 		
@@ -223,9 +251,13 @@ function salvarRegistros() {
 	
 	if ( salvos.length > 0 ) {
 		
+		var linha;
+		
 		for ( var i = 0 ; i < salvos.length ; i++ ){
 			
-			tr[salvos[i]].remove();
+			linha = tbody.querySelector( "tr[data-registro='" + salvos[i] + "']" );
+			
+			linha.remove();
 
 		}
 		
@@ -234,20 +266,18 @@ function salvarRegistros() {
 	
 	if ( falha ) {
 		
-		var numFalhas = tr.length - salvos;
-		
 		alert( salvos.length + " registros salvos.\n" + numFalhas + " registros com operação em branco ou inválida!" );
 		
 	} else {
 		
-		alert( salvos + " registros salvos." );
+		alert( salvos.length + " registros salvos." );
 		
 	}
 	
 	console.log( registros );
+
 	
 }
-
 
 // ======================== VALIDAÇÃO =============================
 function validaOperacoes( operacao ) {
