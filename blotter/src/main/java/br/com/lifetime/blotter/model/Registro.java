@@ -1,10 +1,13 @@
 package br.com.lifetime.blotter.model;
 
-import java.math.BigDecimal;
+import java.text.Normalizer;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -18,16 +21,16 @@ import com.google.gson.Gson;
 public class Registro {
 
 	@Id
-	private Long id;
+	private String id;
 
 	private String ativo;
 	private String tipo;
 	private Integer quantidade;
-	private BigDecimal preco;
+	private Double preco;
 
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "dd/MM/yyyy ")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
 	private Calendar data;
 
 	private Boolean classificado;
@@ -35,15 +38,17 @@ public class Registro {
 	@ManyToOne
 	private Operacao operacao;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "codigo_cliente")
 	private Cliente cliente;
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(String id) {
+		id = id.replaceAll("-", " ").replaceAll("\\s+", "-").replaceAll("[./:_]", "");
+		this.id = Normalizer.normalize(id, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
 	}
 
 	public String getAtivo() {
@@ -70,11 +75,11 @@ public class Registro {
 		this.quantidade = quantidade;
 	}
 
-	public BigDecimal getPreco() {
+	public Double getPreco() {
 		return preco;
 	}
 
-	public void setPreco(BigDecimal preco) {
+	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
 
@@ -112,6 +117,27 @@ public class Registro {
 
 	public String toJson() {
 		return new Gson().toJson(this);
+	}
+
+	public String getDataText() {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+		return sdf.format(data.getTime());
+
+	}
+
+	public void mescla(Registro novo) {
+
+		this.ativo = novo.ativo;
+		this.classificado = novo.classificado;
+		this.cliente = novo.cliente;
+		this.data = novo.data;
+		this.operacao = novo.operacao;
+		this.preco = novo.preco;
+		this.quantidade = novo.quantidade;
+		this.tipo = novo.tipo;
+
 	}
 
 }

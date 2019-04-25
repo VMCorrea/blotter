@@ -15,53 +15,53 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.lifetime.blotter.dao.EstrategiaDAO;
 import br.com.lifetime.blotter.model.Estrategia;
+import br.com.lifetime.blotter.service.EstrategiaService;
 
 @RestController
 @RequestMapping("api/estrategias")
 public class EstrategiaRestController {
 
 	@Autowired
-	private EstrategiaDAO dao;
+	private EstrategiaService estService;
 
 	@GetMapping(value = "/{id}", produces = "application/json")
 	public Estrategia get(@PathVariable("id") Long id) {
-		return dao.read(id);
+		return estService.buscaEstrategiaUnica(id).orElse(new Estrategia());
 	}
 
 	@GetMapping(value = "", produces = "application/json")
 	public List<Estrategia> get() {
-		return dao.list();
+		return estService.buscaLista();
 	}
 
 	@PostMapping(value = "")
 	public ResponseEntity<String> post(@RequestBody Estrategia est) throws URISyntaxException {
-	
-		dao.create(est);
+
+		estService.insereEstrategiaUnica(est);
 		URI uri = new URI("blotter/api/estrategias/" + est.getId());
 		return ResponseEntity.created(uri).body(est.toJson());
 	}
-	
+
 	@PostMapping(value = "/lista")
-	public ResponseEntity<String> cadastraLista(@RequestBody List<Estrategia> list){
-		
+	public ResponseEntity<String> cadastraLista(@RequestBody List<Estrategia> list) {
+
 		for (Estrategia estrategia : list) {
-			dao.create(estrategia);
+			estService.insereEstrategiaUnica(estrategia);
 		}
-		
+
 		return ResponseEntity.ok().build();
 	}
 
 	@PutMapping(value = "")
 	public ResponseEntity<String> put(@RequestBody Estrategia est) {
-		dao.update(est);
+		estService.atualiza(est);
 		return ResponseEntity.ok().body(est.toJson());
 	}
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<String> delete(@PathVariable("id") Long id) {
-		dao.delete(id);
+		estService.deleta(id);
 		return ResponseEntity.ok().build();
 	}
 

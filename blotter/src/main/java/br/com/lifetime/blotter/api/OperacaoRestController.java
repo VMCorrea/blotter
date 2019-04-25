@@ -16,69 +16,69 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.lifetime.blotter.dao.EstrategiaDAO;
-import br.com.lifetime.blotter.dao.OperacaoDAO;
 import br.com.lifetime.blotter.model.Estrategia;
 import br.com.lifetime.blotter.model.Operacao;
+import br.com.lifetime.blotter.service.EstrategiaService;
+import br.com.lifetime.blotter.service.OperacaoService;
 
 @RestController
 @RequestMapping("api/operacoes")
 public class OperacaoRestController {
 
 	@Autowired
-	private OperacaoDAO dao;
-	
+	private OperacaoService opService;
+
 	@Autowired
-	private EstrategiaDAO estDao;
+	private EstrategiaService estService;
 
 	@GetMapping(value = "/{id}", produces = "application/json")
 	public Operacao get(@PathVariable("id") Long id) {
-		
-		Operacao op = dao.read(id);
-		
+
+		Operacao op = opService.buscaOperacaoUnica(id).orElse(new Operacao());
+
 		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		System.out.println(f.format(op.getDataInicio().getTime()) + "4");
-		
+
 		return op;
 	}
 
 	@GetMapping(value = "", produces = "application/json")
 	public List<Operacao> get() {
-		return dao.list();
+		return opService.buscaLista();
 	}
 
 	@PostMapping(value = "")
 	public ResponseEntity<String> post(@RequestBody Operacao op) throws URISyntaxException {
-		
+
 		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		System.out.println(f.format(op.getDataInicio().getTime()) + "4");
-		
+
 		System.out.println(op.getEstrategia().getId());
-		
-		Estrategia est = estDao.read(op.getEstrategia().getId());
-		
+
+		Estrategia est = estService.buscaEstrategiaUnica(op.getEstrategia().getId()).orElse(new Estrategia());
+
 		op.setEstrategia(est);
-		
-		dao.create(op);
+
+		opService.insereOperacaoUnica(op);
 		URI uri = new URI("blotter/api/operacoes/" + op.getId());
 		return ResponseEntity.created(uri).body(op.toJson());
-		
+
 	}
 
 	@PutMapping(value = "")
 	public ResponseEntity<String> put(@RequestBody Operacao op) {
-		
-		Estrategia est = estDao.read(op.getEstrategia().getId());
-		
+
+		Estrategia est = estService.buscaEstrategiaUnica(op.getEstrategia().getId()).orElse(new Estrategia());
+
 		op.setEstrategia(est);
-		
-		dao.update(op);
+
+		opService.atualiza(op);
 		return ResponseEntity.ok().body(op.toJson());
 	}
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<String> delete(@PathVariable("id") Long id) {
-		dao.delete(id);
+		opService.deleta(id);
 		return ResponseEntity.ok().build();
 	}
 

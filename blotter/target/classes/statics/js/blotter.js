@@ -58,7 +58,7 @@ window.onload = function () {
 		
 		formData.append( "file", inputFile.files[0] );
 		
-		request.open( "POST", "/blotter/file-upload" );
+		request.open( "POST", "/blotter/blotter/upload" );
 		request.onload = () => console.log(request.status);
 		request.send(formData);
 		

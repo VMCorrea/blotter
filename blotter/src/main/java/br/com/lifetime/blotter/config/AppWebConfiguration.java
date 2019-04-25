@@ -11,14 +11,13 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import br.com.lifetime.blotter.api.OperacaoRestController;
-import br.com.lifetime.blotter.controller.MainController;
-import br.com.lifetime.blotter.dao.OperacaoDAO;
+import br.com.lifetime.blotter.controller.OperacaoController;
+import br.com.lifetime.blotter.dao.OperacaoDaoImpl;
 import br.com.lifetime.blotter.service.OperacaoService;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses = { MainController.class, OperacaoDAO.class, OperacaoRestController.class,
-		OperacaoService.class })
+@ComponentScan(basePackageClasses = { OperacaoDaoImpl.class, OperacaoRestController.class, OperacaoService.class, OperacaoController.class })
 public class AppWebConfiguration implements WebMvcConfigurer {
 
 	@Override

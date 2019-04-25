@@ -8,26 +8,25 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.lifetime.blotter.dao.EstrategiaDAO;
 import br.com.lifetime.blotter.model.Estrategia;
+import br.com.lifetime.blotter.service.EstrategiaService;
 
 @Controller
 @RequestMapping("estrategias")
 public class EstrategiaController {
 
 	@Autowired
-	EstrategiaDAO dao;
-	
+	private EstrategiaService estService;
+
 	@GetMapping("")
 	public ModelAndView main() {
 		ModelAndView mv = new ModelAndView("estrategia/estrategias");
-		
-		List<Estrategia> list = dao.list();
-		
+
+		List<Estrategia> list = estService.buscaLista();
+
 		mv.addObject("estrategias", list);
-		
+
 		return mv;
 	}
-	
-	
+
 }
