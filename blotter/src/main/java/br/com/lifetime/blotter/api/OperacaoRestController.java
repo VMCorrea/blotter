@@ -33,12 +33,7 @@ public class OperacaoRestController {
 
 	@GetMapping(value = "/{id}", produces = "application/json")
 	public Operacao get(@PathVariable("id") Long id) {
-
 		Operacao op = opService.buscaOperacaoUnica(id).orElse(new Operacao());
-
-		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		System.out.println(f.format(op.getDataInicio().getTime()) + "4");
-
 		return op;
 	}
 

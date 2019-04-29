@@ -7,12 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.springframework.transaction.annotation.Transactional;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.google.gson.Gson;
 
 @Entity
@@ -31,7 +26,6 @@ public class Cliente {
 		return codigo;
 	}
 
-	@Transactional
 	public List<Registro> getRegistros() {
 		return registros;
 	}

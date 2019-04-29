@@ -30,7 +30,7 @@ public class RegistroRestController {
 		return registro;
 	}
 
-	@GetMapping(value = "", produces = "application/json")
+	@GetMapping(value = "/classificar", produces = "application/json")
 	public List<Registro> getAllClassificadoFalse() {
 		return registroService.buscaNaoClassificado();
 	}
@@ -46,5 +46,5 @@ public class RegistroRestController {
 		URI uri = new URI("blotter/api/registros/" + registro.getId());
 		return ResponseEntity.created(uri).build();
 	}
-
+	
 }

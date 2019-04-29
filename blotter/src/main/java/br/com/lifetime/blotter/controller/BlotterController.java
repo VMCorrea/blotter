@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.lifetime.blotter.model.Operacao;
 import br.com.lifetime.blotter.model.Planilha;
 import br.com.lifetime.blotter.model.Registro;
-import br.com.lifetime.blotter.service.ClienteService;
 import br.com.lifetime.blotter.service.OperacaoService;
 import br.com.lifetime.blotter.service.RegistroService;
 
@@ -31,8 +30,8 @@ public class BlotterController {
 	@Autowired
 	private RegistroService regService;
 
-	@Autowired
-	private ClienteService clienteService;
+//	@Autowired
+//	private ClienteService clienteService;
 
 	@GetMapping("")
 	public ModelAndView main() {
@@ -40,8 +39,9 @@ public class BlotterController {
 		ModelAndView mv = new ModelAndView("blotter/blotter");
 
 		List<Operacao> listOp = opService.buscaLista();
-
+		List<Registro> regList = regService.buscaNaoClassificado();
 		mv.addObject("operacoes", listOp);
+		mv.addObject("registros", regList);
 
 		return mv;
 
@@ -52,11 +52,7 @@ public class BlotterController {
 
 		try {
 			List<Registro> lista = Planilha.getRegistros(file);
-
-			for (Registro registro : lista) {
-				regService.salvaRegistro(registro);
-			}
-
+			regService.insereLista(lista);
 		} catch (InvalidFormatException | IOException e) {
 			return ResponseEntity.status(500).body(e.getMessage());
 		}

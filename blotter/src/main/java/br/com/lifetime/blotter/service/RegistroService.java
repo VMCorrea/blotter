@@ -66,10 +66,19 @@ public class RegistroService {
 	public List<Registro> buscaRegistroPorCliente(Long codigo) {
 		return dao.getRegistroByCliente(codigo);
 	}
-	
+
 	@Transactional
-	public List<Registro> buscaNaoClassificado(){
+	public List<Registro> buscaNaoClassificado() {
 		return dao.getClassificadoFalse();
+	}
+
+	@Transactional
+	public void insereLista(List<Registro> lista) {
+
+		for (Registro registro : lista) {
+			dao.update(registro);
+		}
+
 	}
 
 //	public void insereLista(List<Registro> lista) {

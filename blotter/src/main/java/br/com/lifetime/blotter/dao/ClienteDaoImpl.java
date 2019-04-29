@@ -2,10 +2,6 @@ package br.com.lifetime.blotter.dao;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.Hibernate;
@@ -58,35 +54,7 @@ public class ClienteDaoImpl implements ClienteDao {
 
 	@Override
 	public void bulkInsert(List<Cliente> lista) {
-		Integer batchSize = 100;
 
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("blotter");
-		EntityManager entityManager = emf.createEntityManager();
-		EntityTransaction entityTransaction = entityManager.getTransaction();
-
-		try {
-			entityTransaction.begin();
-
-			for (int i = 0; i < lista.size(); i++) {
-				if (i > 0 && i % batchSize == 0) {
-					entityTransaction.commit();
-					entityTransaction.begin();
-
-					entityManager.clear();
-				}
-
-				entityManager.persist(lista.get(i));
-			}
-
-			entityTransaction.commit();
-		} catch (RuntimeException e) {
-			if (entityTransaction.isActive()) {
-				entityTransaction.rollback();
-			}
-			throw e;
-		} finally {
-			entityManager.close();
-		}
 	}
 
 	@Override

@@ -26,6 +26,7 @@ public class RegistroDaoImpl implements RegistroDao {
 	public Boolean create(Registro reg) {
 		try {
 			getSession().persist(reg);
+			getSession().clear();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return false;
@@ -46,6 +47,7 @@ public class RegistroDaoImpl implements RegistroDao {
 	@Override
 	public void saveOrUpdate(Registro reg) {
 		getSession().saveOrUpdate(reg);
+		getSession().flush();
 	}
 
 	@Override

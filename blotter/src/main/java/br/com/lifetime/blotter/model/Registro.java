@@ -1,5 +1,6 @@
 package br.com.lifetime.blotter.model;
 
+import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
