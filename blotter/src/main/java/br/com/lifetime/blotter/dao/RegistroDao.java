@@ -22,4 +22,6 @@ public interface RegistroDao {
 
 	List<Registro> getClassificadoFalse();
 
+	void reset();
+
 }

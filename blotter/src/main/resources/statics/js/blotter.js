@@ -72,10 +72,9 @@ formUpload.addEventListener( "submit", function( event ) {
 		btnUpload.innerText = "Enviar";
 		inputFile.value = "";
 		btnUpload.disabled = false;
+		document.location.reload( true );
 	};
 	request.send( formData );
-
-
 
 });
 
@@ -307,6 +306,7 @@ function salvarRegistros() {
 	}
 	
 	console.log( registros );
+	requisicao.put( "/blotter/api/registros/lista", registros, true, function(){ console.log( "Registros enviados com sucesso!" ) } )
 
 	
 }

@@ -74,4 +74,9 @@ public class RegistroDaoImpl implements RegistroDao {
 	private final Session getSession() {
 		return this.session.getCurrentSession();
 	}
+
+	@Override
+	public void reset() {
+		getSession().getTransaction().commit();
+	}
 }

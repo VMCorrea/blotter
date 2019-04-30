@@ -1,6 +1,7 @@
 package br.com.lifetime.blotter.controller;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -40,6 +41,8 @@ public class BlotterController {
 
 		List<Operacao> listOp = opService.buscaLista();
 		List<Registro> regList = regService.buscaNaoClassificado();
+		regList.sort(Comparator.comparing(Registro::getData).reversed());
+
 		mv.addObject("operacoes", listOp);
 		mv.addObject("registros", regList);
 

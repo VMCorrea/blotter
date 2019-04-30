@@ -76,7 +76,22 @@ public class RegistroService {
 	public void insereLista(List<Registro> lista) {
 
 		for (Registro registro : lista) {
-			dao.update(registro);
+
+	//		if (!Optional.ofNullable(dao.get(registro.getId())).isPresent())
+				dao.update(registro);
+
+		}
+
+	}
+
+	@Transactional
+	public void atualizaLista(List<Registro> lista) {
+
+		for (Registro registro : lista) {
+			Registro velho = dao.get(registro.getId());
+			velho.setOperacao(registro.getOperacao());
+			velho.setClassificado(true);
+//			dao.reset();
 		}
 
 	}
