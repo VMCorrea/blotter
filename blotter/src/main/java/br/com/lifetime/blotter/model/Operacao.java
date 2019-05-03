@@ -1,20 +1,28 @@
 package br.com.lifetime.blotter.model;
 
 import java.util.Calendar;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import br.com.lifetime.blotter.service.RegistroService;
 
 @Entity
 public class Operacao {
@@ -33,6 +41,18 @@ public class Operacao {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private Calendar dataInicio;
+
+	@OneToMany(mappedBy = "operacao", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JsonIgnore
+	private List<Registro> registros;
+
+	public List<Registro> getRegistros() {
+		return registros;
+	}
+
+	public void setRegistros(List<Registro> registros) {
+		this.registros = registros;
+	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -76,8 +96,8 @@ public class Operacao {
 
 	}
 
-	public String toJson() {
-		return new Gson().toJson(this);
+	public String toJson() throws JsonProcessingException {	
+		return new ObjectMapper().writeValueAsString(this);
 	}
 
 }

@@ -33,7 +33,7 @@
                         <a class="nav-link" href='<spring:url value="/operacoes"></spring:url>'>Operações</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link active" href="<spring:url value="/blotter"></spring:url>">Blotter</a>
+                        <a class="nav-link active" href="<spring:url value="/"></spring:url>">Blotter</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="#">Consulta Cliente</a>
@@ -102,41 +102,19 @@
 				</thead>
 				<tbody id="table_tbody--registros">
 
-					<tr class="text-center" data-registro="P.A61435.08/02/2019 15:32:16:344.95">
-						<td> <input type="checkbox"> </td>
-						<td class="td-200 py-0"> <input class="form-control table_td--input-operacao" type="text" list="table_input--list-operacoes"> </td>
-						<td class="td-300"> VICTOR MORAIS CORRÊA </td>
-						<td> GGBR4 </td>
-						<td> C </td>
-						<td> 350 </td>
-						<td> 12,65 </td>
-						<td> 4522367 </td>
-						<td class="td-200"> 11/04/2019 14:44 </td>
-					</tr>
-
-					<tr class="text-center" data-registro="P.A61435.08/02/20 19 15:32:16:344.101">
-						<td> <input type="checkbox"> </td>
-						<td class="td-200 py-0"> <input class="form-control table_td--input-operacao" type="text" list="table_input--list-operacoes"> </td>
-						<td class="td-300"> GIOVANNI DE ALMEIDA MARAZZI </td>
-						<td> CCRO3 </td>
-						<td> V </td>
-						<td> 800 </td>
-						<td> 14,93 </td>
-						<td> 544651 </td>
-						<td class="td-200"> 10/04/2019 14:53 </td>
-					</tr>
-
-					<tr class="text-center" data-registro="P.A61435.08/02/2019 15:32:16:344.86">
-						<td> <input type="checkbox"> </td>
-						<td class="td-200 py-0"> <input class="form-control table_td--input-operacao" type="text" list="table_input--list-operacoes"> </td>
-						<td class="td-300"> WALLACE BRITO DO NASCIMENTO </td>
-						<td> VVAR3 </td>
-						<td> V </td>
-						<td> 0 </td>
-						<td> 6,75 </td>
-						<td> 651654 </td>
-						<td class="td-200"> 04/05/2019 15:32 </td>
-					</tr>
+					<c:forEach items="${ registros }" var="reg">
+						<tr class="text-center" data-registro="${ reg.id }">
+							<td> <input type="checkbox"> </td>
+							<td class="td-200 py-0"> <input class="form-control table_td--input-operacao" type="text" list="table_input--list-operacoes"> </td>
+							<td class="td-300"> ${ reg.cliente.nome } </td>
+							<td> ${ reg.ativo } </td>
+							<td> ${ reg.tipo } </td>
+							<td> ${ reg.quantidade } </td>
+							<td> <fmt:formatNumber value="${ reg.preco }" pattern="R$ #.00" type="currency"/></td>
+							<td> ${ reg.cliente.codigo } </td>
+							<td class="td-200"> <fmt:formatDate value="${ reg.data.time }" pattern="dd/MM/yyyy HH:mm:ss"/>   </td>
+						</tr>
+					</c:forEach>
 
 				</tbody>
 			</table>

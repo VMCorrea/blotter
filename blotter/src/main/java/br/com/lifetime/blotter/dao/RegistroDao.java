@@ -24,4 +24,6 @@ public interface RegistroDao {
 
 	void reset();
 
+	List<Registro> getRegistroByOperacao(Long id);
+
 }

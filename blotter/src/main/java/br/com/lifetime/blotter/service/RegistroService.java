@@ -77,8 +77,8 @@ public class RegistroService {
 
 		for (Registro registro : lista) {
 
-	//		if (!Optional.ofNullable(dao.get(registro.getId())).isPresent())
-				dao.update(registro);
+			// if (!Optional.ofNullable(dao.get(registro.getId())).isPresent())
+			dao.update(registro);
 
 		}
 
@@ -94,6 +94,15 @@ public class RegistroService {
 //			dao.reset();
 		}
 
+	}
+
+	@Transactional
+	public void anulaOperacao(Long id) {
+		List<Registro> registros = dao.getRegistroByOperacao(id);
+		for (Registro registro : registros) {
+			registro.setClassificado(false);
+			registro.setOperacao(null);
+		}
 	}
 
 //	public void insereLista(List<Registro> lista) {

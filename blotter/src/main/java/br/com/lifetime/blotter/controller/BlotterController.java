@@ -22,7 +22,7 @@ import br.com.lifetime.blotter.service.OperacaoService;
 import br.com.lifetime.blotter.service.RegistroService;
 
 @Controller
-@RequestMapping("blotter")
+@RequestMapping("/")
 public class BlotterController {
 
 	@Autowired

@@ -5,7 +5,7 @@
 	<groupId>br.com.lifetime</groupId>
 	<artifactId>blotter</artifactId>
 	<packaging>war</packaging>
-	<version>0.1.0</version>
+	<version>0.1.0.1</version>
 	<name>blotter Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>

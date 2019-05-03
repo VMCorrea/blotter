@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import br.com.lifetime.blotter.model.Estrategia;
 import br.com.lifetime.blotter.model.Operacao;
 import br.com.lifetime.blotter.service.EstrategiaService;
@@ -43,7 +45,7 @@ public class OperacaoRestController {
 	}
 
 	@PostMapping(value = "")
-	public ResponseEntity<String> post(@RequestBody Operacao op) throws URISyntaxException {
+	public ResponseEntity<String> post(@RequestBody Operacao op) throws URISyntaxException, JsonProcessingException {
 
 		SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		System.out.println(f.format(op.getDataInicio().getTime()) + "4");
@@ -61,7 +63,7 @@ public class OperacaoRestController {
 	}
 
 	@PutMapping(value = "")
-	public ResponseEntity<String> put(@RequestBody Operacao op) {
+	public ResponseEntity<String> put(@RequestBody Operacao op) throws JsonProcessingException {
 
 		Estrategia est = estService.buscaEstrategiaUnica(op.getEstrategia().getId()).orElse(new Estrategia());
 
@@ -69,6 +71,7 @@ public class OperacaoRestController {
 
 		opService.atualiza(op);
 		return ResponseEntity.ok().body(op.toJson());
+		
 	}
 
 	@DeleteMapping(value = "/{id}")

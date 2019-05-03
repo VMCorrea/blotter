@@ -1,7 +1,9 @@
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\action\Action.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\config\SpringServlet.java
-C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\controller\MainController.java
+C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\dao\OperacaoDaoImpl.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\service\ClienteService.java
+C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\api\RegistroRestController.java
+C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\dao\EstrategiaDaoImpl.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\api\ClienteRestController.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\model\Estrategia.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\controller\BlotterController.java
@@ -18,13 +20,14 @@ C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\dao\ClienteDao.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\api\OperacaoRestController.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\service\RegistroService.java
-C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\dao\Dao.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\model\Planilha.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\service\ServiceInterface.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\model\Cliente.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\api\EstrategiaRestController.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\model\Registro.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\controller\EstrategiaController.java
+C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\dao\ClienteDaoImpl.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\dao\RegistroDao.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\model\Operacao.java
 C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\service\EstrategiaService.java
+C:\Users\victor.correa\git\blotter\blotter\src\main\java\br\com\lifetime\blotter\dao\RegistroDaoImpl.java

@@ -2,7 +2,7 @@ window.onload = function () {
 
     document.getElementById( "form_modal--save-button" ).addEventListener( "click", sendEstrategia );
 
-    document.getElementById( "form_modal--delete-button" ).addEventListener( "click", deleteEstrategia );
+//    document.getElementById( "form_modal--delete-button" ).addEventListener( "click", deleteEstrategia );
 
 };
 
@@ -30,8 +30,8 @@ $( "#modalEdit" ).on( "show.bs.modal", function ( event ) {
         btnSalvar.setAttribute( "data-acao", "editar" );
 
         // Setando o id da operação no botão DELETAR e o ativa.
-        btnDeletar.setAttribute( "data-delete", id );
-        btnDeletar.disabled = false;
+        // btnDeletar.setAttribute( "data-delete", id );
+ //       btnDeletar.disabled = false;
 
         // Preenchimento dos campos.
         modal.find( "#form_modal--name-input" ).val( nome );
@@ -47,7 +47,7 @@ $( "#modalEdit" ).on( "show.bs.modal", function ( event ) {
         // Setando o atributo que é utilizado para definir a ação que o botão vai executar.
         btnSalvar.setAttribute( "data-acao", "criar" );
 
-        btnDeletar.disabled = true;
+ //       btnDeletar.disabled = true;
     }
 });
 
@@ -124,6 +124,7 @@ function sendEstrategia() {
     }
 }
 // Requisição do tipo DELETE
+/*
 function deleteEstrategia() {
 
     if ( window.confirm( "Deseja deletar essa estratégia? Essa ação não poderá ser desfeita." ) ){
@@ -155,6 +156,7 @@ function deleteEstrategia() {
     }
 
 }
+*/
 
 // ==== Atualiza tabela de operações ====
 // Função para adicionar ou modificar uma linha.

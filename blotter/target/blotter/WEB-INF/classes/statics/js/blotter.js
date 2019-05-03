@@ -4,70 +4,99 @@ var tbody,
     checkboxMaster,
 	list,
 	options,
-	formUpload;
+	formUpload, 
+	btnClassify,
+	btnFiltrar,
+	btnSalvar,
+	btnUpload;
 
-window.onload = function () {
+inputFiltro = document.getElementById( "input_filtra-registro" );
+inputFiltro.addEventListener( "keyup", filtroRegistro );
 
-    var btnClassify,
-        btnFiltrar,
-		btnSalvar,
-		btnUpload;
-       
-    inputFiltro = document.getElementById( "input_filtra-registro" );
-    inputFiltro.addEventListener( "keyup", filtroRegistro );
-    
-    checkboxMaster = document.querySelector( "input[name=checkbox-master]" );
-    checkboxMaster.addEventListener( "change", selectAll );
-    
-    btnClassify = document.getElementById( "form_modal--classify-button" );
-    btnClassify.addEventListener( "click", classifyAll );
-    
-    btnFiltrar = document.getElementById( "btn-filtro" );
-    btnFiltrar.addEventListener( "click", function() {
-       hideShowElement( "form_filtro-registros" );
-		
-		inputFiltro.value = "";
-		
-		filtroRegistro();
-		
-    });
-    
-    tbody = document.getElementById( "table_tbody--registros" );
-	
-	tr = tbody.getElementsByTagName( "tr" );
-	
-	list = document.getElementById( "table_input--list-operacoes" );
-	
-	options = list.getElementsByTagName( "option" );
-	
-	btnSalvar = document.getElementById( "btn-salvar" );
-	btnSalvar.addEventListener( "click", salvarRegistros );
-	
-	btnUpload = document.getElementById( "form_modal-import--upload-button" );
-	
+checkboxMaster = document.querySelector( "input[name=checkbox-master]" );
+checkboxMaster.addEventListener( "change", selectAll );
 
-	var inputFile = document.getElementById( "form_modal-import--input-file" );
-	
-	formUpload = document.getElementById( "form_modal-import" );
-	formUpload.addEventListener( "submit", function( event ) {
-		event.preventDefault();
-		event.stopPropagation();
-		
-		var request = new XMLHttpRequest(),
-			formData = new FormData();
-		
-		formData.append( "file", inputFile.files[0] );
-		
-		request.open( "POST", "/blotter/blotter/upload" );
-		request.onload = () => console.log(request.status);
-		request.send(formData);
-		
+btnClassify = document.getElementById( "form_modal--classify-button" );
+btnClassify.addEventListener( "click", classifyAll );
+
+btnFiltrar = document.getElementById( "btn-filtro" );
+btnFiltrar.addEventListener( "click", function() {
+   hideShowElement( "form_filtro-registros" );
+
+	inputFiltro.value = "";
+
+	filtroRegistro();
+
+});
+
+tbody = document.getElementById( "table_tbody--registros" );
+
+tr = tbody.getElementsByTagName( "tr" );
+
+list = document.getElementById( "table_input--list-operacoes" );
+
+options = list.getElementsByTagName( "option" );
+
+btnSalvar = document.getElementById( "btn-salvar" );
+btnSalvar.addEventListener( "click", salvarRegistros );
+
+btnUpload = document.getElementById( "form_modal-import--upload-button" );
+
+
+var inputFile = document.getElementById( "form_modal-import--input-file" );
+
+formUpload = document.getElementById( "form_modal-import" );
+formUpload.addEventListener( "submit", function( event ) {
+	event.preventDefault();
+	event.stopPropagation();
+
+	var request = new XMLHttpRequest(),
+		formData = new FormData();
+
+	btnUpload.innerText = "Enviando...";
+	btnUpload.disabled = true;
+
+	formData.append( "file", inputFile.files[0] );
+
+	request.open( "POST", "/blotter/upload" );
+	request.onload = () => {
+
+		if( request.status >= 200 & request.status <= 300 ){
+			alert( "Arquivo enviado com sucesso!" );
+			getNaoClassificados();
+		} else {
+			alert( "Erro ao enviar arquivo: " + request.status );
+		}
+
 		$( "#modalImport" ).modal( "hide" );
-		
-	
-	});
+		btnUpload.innerText = "Enviar";
+		inputFile.value = "";
+		btnUpload.disabled = false;
+		document.location.reload( true );
+	};
+	request.send( formData );
 
-};
+});
+
+function getNaoClassificados(){
+	
+	var request = new XMLHttpRequest();
+
+	request.open( "GET", "/blotter/api/registros/classificar" );
+	request.onload = () => {
+		
+		if( request.status >= 200 & request.status <= 300 ){
+			console.log( request.responseText );
+		} else {
+			
+		}
+		
+	request.send();
+		
+	}
+	
+}
+
 
 
 // ==== MOSTRA/OCULTA Elemento ====
@@ -122,7 +151,8 @@ function filtroRegistro() {
     }
 }
 
-// ======================== Classificação em massa / CHECKBOX =============================
+// ======================== Classificação em massa / CHECKBOX
+// =============================
 // Função que seleciona ou deselecionar as checkbox visíveis.
 function selectAll() {
  
@@ -134,7 +164,8 @@ function selectAll() {
 		// Itera pelas linhas da tabela
         for ( i = 0; i < tr.length; i++ ) {
 			
-			// Verifica se o display está vazio. Indicando que a linha está visível,
+			// Verifica se o display está vazio. Indicando que a linha está
+			// visível,
 			// ou seja, faz parte do filtro.
             if ( tr[i].style.display == "" ){
 
@@ -275,6 +306,7 @@ function salvarRegistros() {
 	}
 	
 	console.log( registros );
+	requisicao.put( "/blotter/api/registros/lista", registros, true, function(){ console.log( "Registros enviados com sucesso!" ) } )
 
 	
 }
@@ -289,7 +321,8 @@ function validaOperacoes( operacao ) {
 
         if( options[i].value.indexOf( operacao ) > -1 && operacao != "" ){
 
-            // Ao encontrar uma opção que bata, o id que está salvo na <option> é salvo para validação. 
+            // Ao encontrar uma opção que bata, o id que está salvo na <option>
+			// é salvo para validação.
             id = options[i].getAttribute( "data-op" );
 
         }        

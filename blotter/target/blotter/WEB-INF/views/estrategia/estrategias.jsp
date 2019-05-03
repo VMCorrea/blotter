@@ -33,7 +33,7 @@
                         <a class="nav-link" href='<spring:url value="/operacoes"></spring:url>'>Operações</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link" href="<spring:url value="/blotter"></spring:url>">Blotter</a>
+                        <a class="nav-link" href="<spring:url value="/"></spring:url>">Blotter</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="#">Consulta Cliente</a>
@@ -101,7 +101,6 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                	<button type="button" id="form_modal--delete-button" class="btn btn-danger" data-delete="" >Deletar</button>
 	                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 	                <button type="submit" id="form_modal--save-button" class="btn btn-primary" data-acao=''>Salvar</button>
                 </div>

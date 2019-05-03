@@ -1,6 +1,5 @@
 package br.com.lifetime.blotter.model;
 
-import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,6 +36,7 @@ public class Registro {
 	private Boolean classificado;
 
 	@ManyToOne
+	@JoinColumn(name = "id_operacao")
 	private Operacao operacao;
 
 	@ManyToOne(cascade = CascadeType.ALL)

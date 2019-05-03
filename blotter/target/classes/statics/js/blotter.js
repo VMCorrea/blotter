@@ -58,7 +58,7 @@ formUpload.addEventListener( "submit", function( event ) {
 
 	formData.append( "file", inputFile.files[0] );
 
-	request.open( "POST", "/blotter/blotter/upload" );
+	request.open( "POST", "/blotter/upload" );
 	request.onload = () => {
 
 		if( request.status >= 200 & request.status <= 300 ){

@@ -79,4 +79,11 @@ public class RegistroDaoImpl implements RegistroDao {
 	public void reset() {
 		getSession().getTransaction().commit();
 	}
+
+	@Override
+	public List<Registro> getRegistroByOperacao(Long id) {
+		String jpql = "select r from Registro r join r.operacao o where o.id = :id";
+		TypedQuery<Registro> query = getSession().createQuery(jpql, Registro.class);
+		return query.setParameter("id", id).getResultList();
+	}
 }

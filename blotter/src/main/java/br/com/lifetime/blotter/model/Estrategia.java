@@ -14,7 +14,7 @@ public class Estrategia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(unique = true)
 	private String nome;
 
@@ -25,7 +25,7 @@ public class Estrategia {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -50,6 +50,5 @@ public class Estrategia {
 		}
 
 	}
-
 
 }

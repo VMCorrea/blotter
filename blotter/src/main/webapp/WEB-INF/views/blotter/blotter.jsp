@@ -33,7 +33,7 @@
                         <a class="nav-link" href='<spring:url value="/operacoes"></spring:url>'>Operações</a>
                     </li>
                     <li class="nav-item mx-3">
-                        <a class="nav-link active" href="<spring:url value="/blotter"></spring:url>">Blotter</a>
+                        <a class="nav-link active" href="<spring:url value="/"></spring:url>">Blotter</a>
                     </li>
                     <li class="nav-item mx-3">
                         <a class="nav-link" href="#">Consulta Cliente</a>

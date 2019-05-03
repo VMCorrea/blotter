@@ -109,7 +109,7 @@ function sendOperacao() {
                 estrategia: { 
                     id: idEst 
                 },
-                dataInicio: setDataBr( (data.getDate() + 1),  (data.getMonth() + 1), data.getFullYear() ),
+                dataInicio: setDataBr( dt ),
                 id: ""
             },
             xhr = new XMLHttpRequest(),
@@ -208,8 +208,8 @@ function updateTable( operacao, metodo ) {
     // Isso se deve porque o <input type"date"> utiliza o value no formato americano, mas o sistema utiliza o formato brasileiro.
     var table = document.getElementById( "table_operacoes" ),
         tbody = table.getElementsByTagName( "tbody" )[0],
-        dataBr = setDataBr( operacao.dataInicio.dayOfMonth, operacao.dataInicio.month, operacao.dataInicio.year ),
-        dataUs = setDataUs( operacao.dataInicio.dayOfMonth, operacao.dataInicio.month, operacao.dataInicio.year );
+        dataBr = operacao.dataInicio,
+        dataUs = setDataUs( operacao.dataInicio );
 
     if ( metodo == "POST" ) {
     // Essa é a opção cria uma linha nova na tabela, no caso do método ter sido POST.
@@ -270,15 +270,16 @@ function deleteFromTable( id ) {
 
 }
 
-// ==== Config de Datas ====
-// Configuração de data brasileira
-function setDataBr( dia, mes, ano ) {
-    return ( "0" + dia ).slice( -2 ) + "/" + ( "0" + mes ).slice( -2 ) + "/" + ano;
+// Configuração de data brasileira.
+function setDataBr( dataText ) {
+	var data = dataText.split("-");
+    return data[2] + "/" + data[1] + "/" + data[0];
 }
 
-// Configuração de data americana
-function setDataUs(dia, mes, ano) {
-    return ano + "-" + ( "0" + mes ).slice(-2) + "-" + ( "0" + dia ).slice( -2 );
+// Configuração de data americana.
+function setDataUs( dataText ) {
+	var data = dataText.split("/");
+    return data[2] + "-" + data[1] + "-" + data[0];
 }
 
 // ==== MOSTRA/OCULTA Elemento ====
