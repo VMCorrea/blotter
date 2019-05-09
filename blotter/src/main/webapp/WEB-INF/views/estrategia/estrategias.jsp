@@ -112,23 +112,13 @@
     <script src='<spring:url value="/resources/js/bootstrap.bundle.min.js" />'></script>
     <script src='<spring:url value="/resources/js/app/helpers/RequisicaoHelper.js" />'></script>
     <script src='<spring:url value="/resources/js/app/models/Estrategia.js" />'></script>
+    <script src='<spring:url value="/resources/js/app/models/ListaEstrategias.js" />'></script>
     <script src='<spring:url value="/resources/js/app/controllers/EstrategiaController.js" />'></script>
+    <script src='<spring:url value="/resources/js/app/views/View.js" />'></script>
+    <script src='<spring:url value="/resources/js/app/views/EstrategiaView.js" />'></script>
     <script>
 		const estrategiaController = new EstrategiaController();
 	</script>
-	<c:forEach items="${ estrategias }" var="est">
-	
-		<script>
-			
-		</script>
-
-		<tr class="editavel" data-toggle="modal" data-target="#modalEdit" data-id="${ est.id }" data-nome="${ est.nome }" data-acao="Editar">
-                 <td>${ est.nome }</td>
-                    </tr>
-                    
-      
-
-	</c:forEach>
     
 </body>
 

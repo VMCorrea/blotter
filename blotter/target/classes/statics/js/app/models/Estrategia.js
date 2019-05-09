@@ -1,16 +1,13 @@
 class Estrategia {
 
-	constructor(id, nome) {
+	constructor( id, nome ) {
+		
 		this._id = id;
-		this._nome = nome;
-		Object.freeze(this);
-	}
-
-	get nome() {
-		return this._nome;
+		this.nome = nome;
 	}
 
 	get id() {
+		
 		return this._id;
 	}
 
@@ -18,10 +15,9 @@ class Estrategia {
 
 		var obj = {
 			id: this._id,
-			nome: this._nome
+			nome: this.nome
 		};
 
 		return JSON.stringify(obj);
 	}
-
 }

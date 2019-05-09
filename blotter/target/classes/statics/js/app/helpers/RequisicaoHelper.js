@@ -18,7 +18,7 @@ class RequisicaoHelper {
 				console.log( "Sucesso: " + xhr.status );
 				console.log( xhr.responseText );
 
-				f();
+				f( obj );
 			} else {
 				
 				console.log( "Falha: " + xhr.status );

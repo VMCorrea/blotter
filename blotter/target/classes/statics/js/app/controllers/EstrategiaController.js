@@ -9,16 +9,24 @@ class EstrategiaController {
 		this._inputId = select( "#form_modal--id-input" );
 		this._modalForm = select( "#form_modal" );
 		this._modalLabel = select( "#modalEditLabel" );
+		this._tbody = select( "#estrategiaView" );
 		
-		this._estrategias = new ListaEstrategias();
+		this._estrategias = new ListaEstrategias( model => console.log( model ) );
 		
-		this._estrategiasView = new EstrategiaView( select( "#estrategiaView" ) );
+		this._estrategiasView = new EstrategiaView( this._tbody );
 		
 		this._modalForm.addEventListener( "submit", event => this._submit( event ) );
 		
 		$( "#modalEdit" ).on( "show.bs.modal", event => this._modalConfig( event ) );
+		
+		this._atualizaLista();
+		
+		this._estrategias.fn = model => this._estrategiasView.update( this._estrategias );
 	}
 	
+	/*
+		Método que envia a estratégia via HTTP.
+	*/
 	_submit( event ) {
 		
 		event.preventDefault();
@@ -32,7 +40,18 @@ class EstrategiaController {
 				metodo = this._modalForm.getAttribute( "method" ),
 				xhr;
 			
-			xhr = RequisicaoHelper.configRequest( metodo, "api/estrategias", function(){ console.log( "Teste" ) } );
+			xhr = RequisicaoHelper.configRequest( metodo, "api/estrategias", obj => {
+				
+				let estrategia = new Estrategia( obj.id, obj.nome );
+				
+				if( this._modalForm.getAttribute( "method" ) == "POST" ) {
+					
+					this.add( estrategia );
+				} else {
+					
+					this.update( estrategia );
+				}
+			} );
 			
         	xhr.send( estrategia.toJson() );
 			
@@ -40,6 +59,19 @@ class EstrategiaController {
 		}
 	}
 	
+	add( estrategia ) {
+		
+		this._estrategias.adiciona( estrategia );
+	}
+	
+	update( estrategia ) {
+		
+		this._estrategias.atualizaEstrategia( estrategia );
+	}
+	
+	/* 
+		Método que configura os campos do modal, quando ele é chamado.
+	*/
 	_modalConfig( event ) {
 		
 		let alvo = $( event.relatedTarget ),
@@ -62,6 +94,23 @@ class EstrategiaController {
 			
 			this._inputId.value = "";
 			this._inputName.value = "";
+		}
+	}
+	
+	/*	
+		Método utilizado ao carregar a página. Ele itera as linhas da tabela de estratégia, 
+		para adicionar as estratégias existentes na lista do controller.
+	*/
+	_atualizaLista() {
+		
+		let tr = this._tbody.querySelectorAll( "tr" );
+		
+		for( let i = 0 ; i < tr.length ; i++ ) {
+		
+			let id = tr[i].getAttribute( "data-id" ),
+				nome = tr[i].getAttribute( "data-nome" );
+			
+			this.add( new Estrategia( id, nome ) );
 		}
 	}
 }
