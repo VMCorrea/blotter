@@ -67,7 +67,7 @@
                         <th scope="col">Estratégia</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="estrategiaView">
               		<c:forEach items="${ estrategias }" var="est">
 
 					<tr class="editavel" data-toggle="modal" data-target="#modalEdit" data-id="${ est.id }" data-nome="${ est.nome }" data-acao="Editar">
@@ -91,27 +91,44 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form id="form_modal" name="form_modal" action="#" method="get">
-                        <div class="form-group">
+                <form id="form_modal" name="form_modal" action="#" method="get">
+                	<div class="modal-body">
+                    	<div class="form-group">
                             <label for="operacao-edit" class="col-form-label">Nome:</label>
                             <input class="form-control" type="text" id="form_modal--name-input" name="nome" required>
                         </div>
                         <input type="hidden" name="id" value="" id="form_modal--id-input">
-                    </form>
-                </div>
-                <div class="modal-footer">
-	                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	                <button type="submit" id="form_modal--save-button" class="btn btn-primary" data-acao=''>Salvar</button>
-                </div>
+                	</div>
+                	<div class="modal-footer">
+	                	<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	                	<button type="submit" id="form_modal--save-button" class="btn btn-primary" data-acao=''>Salvar</button>
+                	</div>
+                </form>
             </div>
         </div>
     </div>
 
     <script src='<spring:url value="/resources/js/jquery.min.js" />'></script>
     <script src='<spring:url value="/resources/js/bootstrap.bundle.min.js" />'></script>
-    <script src='<spring:url value="/resources/js/requisicao.js" />'></script>
-    <script src='<spring:url value="/resources/js/estrategia.js" />'></script>
+    <script src='<spring:url value="/resources/js/app/helpers/RequisicaoHelper.js" />'></script>
+    <script src='<spring:url value="/resources/js/app/models/Estrategia.js" />'></script>
+    <script src='<spring:url value="/resources/js/app/controllers/EstrategiaController.js" />'></script>
+    <script>
+		const estrategiaController = new EstrategiaController();
+	</script>
+	<c:forEach items="${ estrategias }" var="est">
+	
+		<script>
+			
+		</script>
+
+		<tr class="editavel" data-toggle="modal" data-target="#modalEdit" data-id="${ est.id }" data-nome="${ est.nome }" data-acao="Editar">
+                 <td>${ est.nome }</td>
+                    </tr>
+                    
+      
+
+	</c:forEach>
     
 </body>
 
