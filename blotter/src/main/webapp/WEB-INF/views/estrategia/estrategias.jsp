@@ -60,7 +60,7 @@
         </div>
         
         <!-- TABELA -->
-        <div class="row mt-3">
+        <div class="row my-3">
             <table class="table table-hover table-striped table-bordered col-auto col-md-6 mx-auto" id="table_estrategias">
                 <thead class="thead-dark">
                     <tr>
@@ -68,13 +68,6 @@
                     </tr>
                 </thead>
                 <tbody id="estrategiaView">
-              		<c:forEach items="${ estrategias }" var="est">
-
-					<tr class="editavel" data-toggle="modal" data-target="#modalEdit" data-id="${ est.id }" data-nome="${ est.nome }" data-acao="Editar">
-                        <td>${ est.nome }</td>
-                    </tr>
-
-					</c:forEach>
                 </tbody>
             </table>
         </div>
@@ -110,16 +103,7 @@
 
     <script src='<spring:url value="/resources/js/jquery.min.js" />'></script>
     <script src='<spring:url value="/resources/js/bootstrap.bundle.min.js" />'></script>
-    <script src='<spring:url value="/resources/js/app/helpers/RequisicaoHelper.js" />'></script>
-    <script src='<spring:url value="/resources/js/app/models/Estrategia.js" />'></script>
-    <script src='<spring:url value="/resources/js/app/models/ListaEstrategias.js" />'></script>
-    <script src='<spring:url value="/resources/js/app/controllers/EstrategiaController.js" />'></script>
-    <script src='<spring:url value="/resources/js/app/views/View.js" />'></script>
-    <script src='<spring:url value="/resources/js/app/views/EstrategiaView.js" />'></script>
-    <script>
-		const estrategiaController = new EstrategiaController();
-	</script>
-    
+    <script type="module" src='<spring:url value="/resources/js/app/boot/estrategia.js" />'></script>
 </body>
 
 </html>

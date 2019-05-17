@@ -1,4 +1,4 @@
-class Estrategia {
+export class Estrategia {
 
 	constructor( id, nome ) {
 		
@@ -18,6 +18,6 @@ class Estrategia {
 			nome: this.nome
 		};
 
-		return JSON.stringify(obj);
+		return JSON.stringify( obj );
 	}
 }

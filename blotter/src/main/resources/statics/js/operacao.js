@@ -337,7 +337,6 @@ function filtroOperacao() {
         } else {
 
             tr[i].style.display = "none";
-
         }
     }
 }

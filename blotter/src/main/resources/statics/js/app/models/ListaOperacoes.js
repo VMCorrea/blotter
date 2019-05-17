@@ -1,4 +1,4 @@
-class ListaOperacoes {
+export class ListaOperacoes {
 	
 	constructor() {
 		
@@ -13,5 +13,18 @@ class ListaOperacoes {
 	get operacoes(){
 		
 		return [].concat( this._operacoes );
+	}
+
+	edita( operacao ) {
+
+		for( let i = 0 ; i < this._operacoes.length ; i++ ) {
+
+			if ( this._operacoes[i].id == operacao.id ) {
+
+				this._operacoes[i].nome = operacao.nome;
+				this._operacoes[i].estrategia = operacao.estrategia;
+				this._operacoes[i].dataInicio = operacao.dataInicio;
+			}
+		}
 	}
 }

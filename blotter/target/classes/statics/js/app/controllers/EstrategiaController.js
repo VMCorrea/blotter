@@ -1,4 +1,10 @@
-class EstrategiaController {
+import {Estrategia} from "../models/Estrategia.js";
+import {ListaEstrategias} from "../models/ListaEstrategias.js";
+import {EstrategiaService} from "../services/EstrategiaService.js";
+import {EstrategiaView} from "../views/EstrategiaView.js";
+import {Bind} from "../helpers/Bind.js";
+
+export class EstrategiaController {
 	
 	constructor() {
 		
@@ -11,17 +17,20 @@ class EstrategiaController {
 		this._modalLabel = select( "#modalEditLabel" );
 		this._tbody = select( "#estrategiaView" );
 		
-		this._estrategias = new ListaEstrategias( model => console.log( model ) );
+		this._estrategiaService = new EstrategiaService();
 		
-		this._estrategiasView = new EstrategiaView( this._tbody );
+		this._estrategias = new Bind( 
+			new ListaEstrategias(), 
+			new EstrategiaView( this._tbody ), 
+			"adiciona", "edita" );
 		
-		this._modalForm.addEventListener( "submit", event => this._submit( event ) );
+		this._modalForm.addEventListener( 
+			"submit", 
+			event => this._submit( event ) );
 		
-		$( "#modalEdit" ).on( "show.bs.modal", event => this._modalConfig( event ) );
-		
-		this._atualizaLista();
-		
-		this._estrategias.fn = model => this._estrategiasView.update( this._estrategias );
+		$( "#modalEdit" ).on( 
+			"show.bs.modal", 
+			event => this._modalConfig( event ) );
 	}
 	
 	/*
@@ -38,35 +47,45 @@ class EstrategiaController {
 		
 			let estrategia = new Estrategia( this._inputId.value, this._inputName.value ),
 				metodo = this._modalForm.getAttribute( "method" ),
-				xhr;
-			
-			xhr = RequisicaoHelper.configRequest( metodo, "api/estrategias", obj => {
+				promise;
+
+			if ( metodo == "POST" ) {
 				
-				let estrategia = new Estrategia( obj.id, obj.nome );
+				promise = 
+					this._estrategiaService
+						.postEstrategia( estrategia )
+						.then( response => {
+							console.log( response );
+							this._estrategias.adiciona( new Estrategia( response.id, response.nome ) );
+						} )
+						.catch( err => alert( err ) );
+			} else {
 				
-				if( this._modalForm.getAttribute( "method" ) == "POST" ) {
-					
-					this.add( estrategia );
-				} else {
-					
-					this.update( estrategia );
-				}
-			} );
-			
-        	xhr.send( estrategia.toJson() );
+				promise = 
+					this._estrategiaService
+						.putEstrategia( estrategia )
+						.then( response => {
+							console.log( response );
+							this._estrategias.edita( estrategia );
+						} )
+						.catch( err => alert( err ) );
+			}
 			
 			$( "#modalEdit" ).modal( "hide" );
 		}
 	}
 	
-	add( estrategia ) {
-		
-		this._estrategias.adiciona( estrategia );
-	}
-	
-	update( estrategia ) {
-		
-		this._estrategias.atualizaEstrategia( estrategia );
+	/*
+		Método para buscar todas as estratégias do banco.
+	*/
+	buscaEstrategias() {
+
+		let promise = 
+				this._estrategiaService
+					.getListEstrategias()
+					.then( estrategias => 
+						  estrategias.forEach( estrategia => this._estrategias.adiciona( estrategia ) ) )
+					.catch( erro => alert( erro ) );
 	}
 	
 	/* 
@@ -94,23 +113,6 @@ class EstrategiaController {
 			
 			this._inputId.value = "";
 			this._inputName.value = "";
-		}
-	}
-	
-	/*	
-		Método utilizado ao carregar a página. Ele itera as linhas da tabela de estratégia, 
-		para adicionar as estratégias existentes na lista do controller.
-	*/
-	_atualizaLista() {
-		
-		let tr = this._tbody.querySelectorAll( "tr" );
-		
-		for( let i = 0 ; i < tr.length ; i++ ) {
-		
-			let id = tr[i].getAttribute( "data-id" ),
-				nome = tr[i].getAttribute( "data-nome" );
-			
-			this.add( new Estrategia( id, nome ) );
 		}
 	}
 }

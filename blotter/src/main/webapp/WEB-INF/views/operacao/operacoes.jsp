@@ -58,7 +58,7 @@
                 <button class="btn btn-primary ml-auto rounded-pill px-5" data-toggle="modal" data-target="#modalEdit" data-acao="Criar">Criar</button>
             </div>
             <div class="col-auto mr-auto">
-                <button class="btn btn-primary rounded-pill px-5" data-acao="Buscar" onclick="hideShowElement('form_busca-operacao')">Buscar</button>
+                <button class="btn btn-primary rounded-pill px-5" data-acao="Buscar" id="btn-filtro">Buscar</button>
             </div>
         </div>
 
@@ -89,16 +89,7 @@
                         <th scope="col">Data de Ínicio</th>
                     </tr>
                 </thead>
-                <tbody>
-              		<c:forEach items="${ operacoes }" var="op">
-
-					<tr class="editavel" data-toggle="modal" data-target="#modalEdit" data-id="${ op.id }" data-estrategia="${ op.estrategia.nome }" data-operacao="${ op.nome }" data-inicio='<fmt:formatDate value="${ op.dataInicio.time }" pattern="yyyy-MM-dd" />' data-acao="Editar">
-                        <td>${ op.estrategia.nome }</td>
-                        <td>${ op.nome }</td>
-                        <td><fmt:formatDate value="${ op.dataInicio.time }" pattern="dd/MM/yyyy" /> </td>
-                    </tr>
-
-					</c:forEach>
+                <tbody id="operacaoView">
                 </tbody>
             </table>
         </div>
@@ -115,44 +106,37 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form id="form_modal" name="form_modal" action="#" method="get">
-                        <div class="form-group">
-                            <label for="estrategia-edit" class="col-form-label">Estratégia:</label>
-                            <input type="text" class="form-control" id="estrategia-edit" name="estrategia" list="form_modal--list-estrategias" required>
-                            <datalist id="form_modal--list-estrategias">
-								
-								<c:forEach items="${ estrategias }" var="est">
-								
-									<option value="${ est.nome }" data-id="${ est.id }"></option>
-								
-								</c:forEach>
-								
-                            </datalist>
-                        </div>
-                        <div class="form-group">
-                            <label for="operacao-edit" class="col-form-label">Operação:</label>
-                            <input class="form-control" type="text" id="operacao-edit" name="operacao" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="data-edit" class="col-form-label">Data de ínicio:</label>
-                            <input class="form-control" type="date" id="data-edit" name="data" required>
-                        </div>
-                        <input type="hidden" name="id" value="" id="id-edit">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                	<button type="button" id="form_modal--delete-button" class="btn btn-danger" data-delete="" >Deletar</button>
-	                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	                <button type="submit" id="form_modal--save-button" class="btn btn-primary" data-acao=''>Salvar</button>
-                </div>
+                <form id="form_modal" name="form_modal" action="#" method="POST">
+	                <div class="modal-body">
+	                	<div class="form-group">
+	                    	<label for="estrategia-edit" class="col-form-label">Estratégia:</label>
+	                    	<input type="text" class="form-control" id="form_modal--input-estrategia" name="estrategia" list="form_modal--list-estrategias" required>
+		                    <datalist id="form_modal--list-estrategias">
+		                    </datalist>
+	                    </div>
+	                    <div class="form-group">
+		                    <label for="operacao-edit" class="col-form-label">Operação:</label>
+		                    <input class="form-control" type="text" id="form_modal--input-nome" name="operacao" required>
+	                    </div>
+	                    <div class="form-group">
+		                    <label for="data-edit" class="col-form-label">Data de ínicio:</label>
+		                    <input class="form-control" type="date" id="form_modal--input-data" name="data" required>
+	                    </div>
+	                    <input type="hidden" name="id" value="" id="form_modal--input-id">
+	                </div>
+	                <div class="modal-footer">
+<!-- 	                	<button type="button" id="form_modal--delete-button" class="btn btn-danger" data-delete="" >Deletar</button> -->
+		                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+		                <button type="submit" id="form_modal--save-button" class="btn btn-primary" data-acao=''>Salvar</button>
+	                </div>
+                </form>
             </div>
         </div>
     </div>
 
     <script src='<spring:url value="/resources/js/jquery.min.js" />'></script>
     <script src='<spring:url value="/resources/js/bootstrap.bundle.min.js" />'></script>
-    <script src='<spring:url value="/resources/js/operacao.js" />'></script>
+    <script type="module" src='<spring:url value="/resources/js/app/boot/operacao.js" />'></script>
     
 </body>
 

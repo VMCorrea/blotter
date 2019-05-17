@@ -1,4 +1,6 @@
-class EstrategiaView extends View {
+import {View} from "./View.js";
+
+export class EstrategiaView extends View {
 	
 	constructor( elemento ) {
 		

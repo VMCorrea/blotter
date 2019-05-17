@@ -55,6 +55,7 @@ public class EstrategiaRestController {
 
 	@PutMapping(value = "")
 	public ResponseEntity<String> put(@RequestBody Estrategia est) {
+		System.out.println(est.getId());
 		estService.atualiza(est);
 		return ResponseEntity.ok().body(est.toJson());
 	}

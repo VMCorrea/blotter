@@ -16,9 +16,6 @@ public class RegistroService {
 	@Autowired
 	private RegistroDao dao;
 
-	@Autowired
-	private ClienteService clienteService;
-
 	@Transactional
 	public Boolean insereRegistroUnico(Registro reg) {
 		return dao.create(reg);
@@ -81,7 +78,6 @@ public class RegistroService {
 			dao.update(registro);
 
 		}
-
 	}
 
 	@Transactional

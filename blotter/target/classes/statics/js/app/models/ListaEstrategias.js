@@ -1,20 +1,13 @@
-class ListaEstrategias {
+export class ListaEstrategias {
 	
-	constructor( fn ) {
+	constructor() {
 		
-		this._fn = fn;
 		this._estrategias = [];
 	}
 	
 	adiciona( estrategia ) {
 		
 		this._estrategias.push( estrategia );
-		this._fn( this );
-	}
-	
-	set fn( fn ) {
-		
-		this._fn = fn; 
 	}
 	
 	get estrategias() {
@@ -22,7 +15,7 @@ class ListaEstrategias {
 		return [].concat( this._estrategias );
 	}
 	
-	atualizaEstrategia( estrategia ) {
+	edita( estrategia ) {
 		
 		for( let i = 0 ; i < this._estrategias.length ; i++ ) {
 			
@@ -32,7 +25,5 @@ class ListaEstrategias {
 				break;
 			}
 		}
-		
-		this._fn( this );
 	}
 }
