@@ -16,7 +16,13 @@ import br.com.lifetime.blotter.model.Cliente;
 import br.com.lifetime.blotter.model.Registro;
 import br.com.lifetime.blotter.service.ClienteService;
 import br.com.lifetime.blotter.service.RegistroService;
-
+/**
+ * <h1>ClienteRestController</h1>
+ * <p> Classe que implemente as requisições RESTful do model Cliente </p>
+ * 
+ * @author victor.correa
+ *
+ */
 @RestController
 @RequestMapping("api/clientes")
 public class ClienteRestController {

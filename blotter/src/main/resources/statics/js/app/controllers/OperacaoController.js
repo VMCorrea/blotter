@@ -19,9 +19,9 @@ export class OperacaoController {
 
 		// Atributos relacionados ao formulário de envio.
 		this._inputSaveBtn = select( "#form_modal--save-button" );
-		this._inputNome = select("#form_modal--input-nome");
-		this._inputDataInicio = select("#form_modal--input-data");
-		this._inputEstrategia = select("#form_modal--input-estrategia");
+		this._inputNome = select( "#form_modal--input-nome" );
+		this._inputDataInicio = select( "#form_modal--input-data" );
+		this._inputEstrategia = select( "#form_modal--input-estrategia" );
 		this._inputId = select( "#form_modal--input-id" );
 		this._modalForm = select( "#form_modal" );
 		this._modalLabel = select( "#modalEditLabel" );

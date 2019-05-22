@@ -35,11 +35,12 @@ public class Estrategia {
 	}
 
 	/**
-	 * Método que retorna o objeto em uma string no padrão Json
+	 * Método que retorna o objeto em uma string no padrão Json.
 	 * 
 	 * @return String json
 	 */
 	public String toJson() {
+		
 		return new Gson().toJson(this);
 	}
 

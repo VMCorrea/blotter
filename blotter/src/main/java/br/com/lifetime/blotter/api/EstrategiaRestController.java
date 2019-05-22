@@ -18,6 +18,15 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.lifetime.blotter.model.Estrategia;
 import br.com.lifetime.blotter.service.EstrategiaService;
 
+/**
+ * <h1>EstrategiaRestController</h1>
+ * <p>
+ * Classe que implementa as requisições RESTful do model Estrategia
+ * </p>
+ * 
+ * @author victor.correa
+ *
+ */
 @RestController
 @RequestMapping("api/estrategias")
 public class EstrategiaRestController {
@@ -27,11 +36,13 @@ public class EstrategiaRestController {
 
 	@GetMapping(value = "/{id}", produces = "application/json")
 	public Estrategia get(@PathVariable("id") Long id) {
+
 		return estService.buscaEstrategiaUnica(id).orElse(new Estrategia());
 	}
 
 	@GetMapping(value = "", produces = "application/json")
 	public List<Estrategia> get() {
+
 		return estService.buscaLista();
 	}
 
@@ -55,6 +66,7 @@ public class EstrategiaRestController {
 
 	@PutMapping(value = "")
 	public ResponseEntity<String> put(@RequestBody Estrategia est) {
+		
 		System.out.println(est.getId());
 		estService.atualiza(est);
 		return ResponseEntity.ok().body(est.toJson());
@@ -62,6 +74,7 @@ public class EstrategiaRestController {
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<String> delete(@PathVariable("id") Long id) {
+		
 		estService.deleta(id);
 		return ResponseEntity.ok().build();
 	}

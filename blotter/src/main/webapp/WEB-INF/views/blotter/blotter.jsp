@@ -54,11 +54,11 @@
 		<!--  BOTÕES  -->
 		<div class="row">
 			<div class="col-12 col-md-8 text-md-left text-center">
-				<button class="btn btn-primary rounded-pill px-5" data-acao="Classificar" data-toggle="modal" data-target="#modalCl">Classificar Selecionados</button>
+				<button class="btn btn-primary rounded-pill px-5" id="btn-classificar" data-acao="Classificar" data-toggle="modal" data-target="#modalCl">Classificar Selecionados</button>
 				<button class="btn btn-primary rounded-pill px-5" id="btn-filtro" data-acao="Filtrar">Filtrar</button>
 			</div>
 			<div class="col-12 col-md-4 text-md-right text-center ">
-				<button class="btn btn-primary rounded-pill px-5" data-acao="Importar" data-toggle="modal" data-target="#modalImport">Importar <i class="far fa-file-excel fa-sm"></i></button>
+				<button class="btn btn-primary rounded-pill px-5" data-acao="Importar" id="btn-importar" data-toggle="modal" data-target="#modalImport">Importar <i class="far fa-file-excel fa-sm"></i></button>
 				<button class="btn btn-success rounded-pill px-5" data-acao="Salvar" id="btn-salvar">Salvar</button>
 			</div>
 		</div>
@@ -100,22 +100,7 @@
 						<th scope="col">Data</th>
 					</tr>
 				</thead>
-				<tbody id="table_tbody--registros">
-
-					<c:forEach items="${ registros }" var="reg">
-						<tr class="text-center" data-registro="${ reg.id }">
-							<td> <input type="checkbox"> </td>
-							<td class="td-200 py-0"> <input class="form-control table_td--input-operacao" type="text" list="table_input--list-operacoes"> </td>
-							<td class="td-300"> ${ reg.cliente.nome } </td>
-							<td> ${ reg.ativo } </td>
-							<td> ${ reg.tipo } </td>
-							<td> ${ reg.quantidade } </td>
-							<td> <fmt:formatNumber value="${ reg.preco }" pattern="R$ #.00" type="currency"/></td>
-							<td> ${ reg.cliente.codigo } </td>
-							<td class="td-200"> <fmt:formatDate value="${ reg.data.time }" pattern="dd/MM/yyyy HH:mm:ss"/>   </td>
-						</tr>
-					</c:forEach>
-
+				<tbody id="registroXpView">
 				</tbody>
 			</table>
 		</div>
@@ -175,9 +160,6 @@
 
     
     <datalist id="table_input--list-operacoes">
-    	<c:forEach items="${ operacoes }" var="op">
-    	<option value="${ op.nome }" data-op="${ op.id }">
-    	</c:forEach>
     </datalist>
 
     <script src='<spring:url value="/resources/js/jquery.min.js" />'></script>
