@@ -1,5 +1,9 @@
-import {ProxyFactory} from "../services/ProxyFactory.js";
+import { ProxyFactory } from "../services/ProxyFactory.js";
 
+/**
+ * Classe que ao ser instanciada retorna o Proxy do modelo passado.
+ * 
+ */
 export class Bind {
 	
 	constructor( model, view, ...props ) {
